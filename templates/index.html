@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Ranker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>AI-Powered Resume Ranker</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <label><b>Job Description</b></label><br>
+        <textarea name="job_desc" rows="6" required
+                  placeholder="Paste job description here..."></textarea>
+
+        <br><br>
+
+        <input type="file" name="resumes" multiple required>
+
+        <br><br>
+        <button type="submit">Rank Resumes</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    {% if results %}
+        <h2>Ranking Results</h2>
+        <table>
+            <tr>
+                <th>Resume</th>
+                <th>Match Score</th>
+            </tr>
+            {% for name, score in results %}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ '%.2f'|format(score) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</div>
+</body>
+</html>
